@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
   	extend: {
+		screens: {
+			xs: { max: '650px' }, // Adds a custom breakpoint for screens below 600px
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
