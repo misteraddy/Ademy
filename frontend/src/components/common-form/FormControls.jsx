@@ -72,7 +72,7 @@ function FormControls({
             id={getControlItem.name}
             name={getControlItem.name}
             placeholder={getControlItem.placeholder}
-            value={currentControlItemValue}
+            value={formData[getControlItem.name] || ""}
             onChange={(event) =>
               setFormData({
                 ...formData,
@@ -114,7 +114,7 @@ function FormControls({
             <Label className={"xs:text-xs"} htmlFor={controlItem.name}>{controlItem.label}</Label>
           </div>
           {renderComponentByType(controlItem)}
-          {formErrors[controlItem.name] && (
+          {formErrors && formErrors[controlItem.name] && (
             <p className={controlItem.errorClassName}>
               {formErrors[controlItem.name]}
             </p>
