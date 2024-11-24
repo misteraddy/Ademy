@@ -39,3 +39,17 @@ export async function checkUser(formData) {
     throw error;
   }
 }
+
+export async function mediaUploadService(formData) {
+  try {
+    const { data } = await axiosInstance.post("/api/v1/media/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" }, 
+    });
+
+    return data; 
+  } catch (error) {
+    console.error("Error in mediaUploadService:", error.response?.data || error.message);
+    throw error; 
+  }
+}
+

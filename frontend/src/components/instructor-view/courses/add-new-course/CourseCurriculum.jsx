@@ -3,13 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { InstructorContext } from "@/context/instructorcontext";
 import React, { useContext } from "react";
 
 function CourseCurriculum({
   handleNewLecture,
   setCourseCurriculumFormData,
   courseCurriculumFormData,
+  handleSingleLectureUpload,
+  handleFreePreviewChange,
+  handleCourseTitleChange,
 }) {
   return (
     <Card>
@@ -27,11 +29,15 @@ function CourseCurriculum({
                   name={`title-${index + 1}`}
                   placeholder="Enter lecture title"
                   className="max-w-96"
+                  onChange={(event) => handleCourseTitleChange(event,index)}
                 />
                 <div className="flex items-center space-x-2">
                   <Switch
                     checked={courseCurriculumFormData[index]?.freePreview}
                     id={`freePreview-${index + 1}`}
+                    onCheckedChange={(value) =>
+                      handleFreePreviewChange(value, index)
+                    }
                   />
                   <Label htmlFor={`curriculumData.freePreview-${index + 1}`}>
                     Free Preview
@@ -40,7 +46,11 @@ function CourseCurriculum({
               </div>
 
               <Card>
-                <Input type="file" accept={"video/*"} />
+                <Input
+                  type="file"
+                  accept="video/*"
+                  onChange={(event) => handleSingleLectureUpload(event, index)}
+                />
               </Card>
             </div>
           ))}

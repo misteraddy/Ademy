@@ -3,6 +3,7 @@ const { PORT, CLIENT_URL } = require("./config/serverConfig");
 const connectDB = require("./config/dbConfig");
 const cors = require("cors");
 const appRouter = require("./routes/apiRoutes");
+const requestLogger = require("./middlewares/requestLogger");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(
         allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
+
+app.use(requestLogger);
 
 
 app.use("/api/v1",appRouter);

@@ -6,15 +6,21 @@ const { errorResponse, successResponse } = require("../utils/responseHandler");
 
 const uploadController = async (req, res) => {
   try {
-    const result = await uploadMediaToCloudinary(req.file.path);
+    console.log("Request body:", req.body);
+    console.log("Request file:", req.file); 
 
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const result = await uploadMediaToCloudinary(req.file.path);
     return successResponse(res, result, "File Uploaded Successfully");
   } catch (error) {
     console.log("Error uploading file:", error);
-
     return errorResponse(res, "Failed to upload file. Please try again.");
   }
 };
+
 
 const deleteController = async (req, res) => {
   try {
