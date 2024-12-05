@@ -23,9 +23,18 @@ const updateCourseByIDRepository = async (id, updatedCourseData) => {
   return updatedCourse;
 };
 
+const addLectureToCourse = async (courseId, lectureData) => {
+  return await Course.findByIdAndUpdate(
+    courseId,
+    { $push: { curriculum: lectureData } },
+    { new: true }
+  );
+};
+
 module.exports = {
   addNewCourseRepository,
   getAllCourseRepository,
   getCourseDetailsByIDRepository,
   updateCourseByIDRepository,
+  addLectureToCourse,
 };

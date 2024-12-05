@@ -20,13 +20,10 @@ function StudentViewCoursePage({
   filters,
   setSort,
   handleFilterOnChange,
+  studentViewCoursesList
 }) {
-  const { studentViewCoursesList, setStudentViewCoursesList } =
-    useContext(StudentContext);
 
     const navigate = useNavigate();
-
-    console.log("page",studentViewCoursesList);
 
   return (
     <div className="container mx-auto p-4">

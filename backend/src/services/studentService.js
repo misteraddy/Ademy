@@ -43,6 +43,11 @@ const getAllCourses = async (query) => {
   return await studentRepository.findCourses(filters, sortParam);
 };
 
+const getCourseDetailsById = async (id) => {
+  return await studentRepository.findCourseById(id);
+};
+
 module.exports = {
   getAllCourses,
+  getCourseDetailsById,
 };

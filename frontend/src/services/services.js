@@ -1,54 +1,32 @@
 import axiosInstance from "@/api/axiosInstance";
 
-export async function registerUser(formData) {
-  try {
-    const { data } = await axiosInstance.post("/auth/signup", {
-      ...formData,
-      role: "user",
-    });
-    return data;
-  } catch (error) {
-    console.error(
-      "Error in registerUser:",
-      error.response?.data || error.message
-    );
-    throw error;
-  }
+export async function registerService(formData) {
+  const { data } = await axiosInstance.post("/auth/register", {
+    ...formData,
+    role: "user",
+  });
+
+  return data;
 }
 
-export async function loginUser(formData) {
-  try {
-    const { data } = await axiosInstance.post("/auth/login", {
-      ...formData,
-    });
-    return data;
-  } catch (error) {
-    console.error("Error in loginUser:", error.response?.data || error.message);
-    throw error;
-  }
+export async function loginService(formData) {
+  const { data } = await axiosInstance.post("/auth/login", formData);
+
+  return data;
 }
 
-export async function checkUser(formData) {
-  try {
-    const { data } = await axiosInstance.get("/check-user", {
-      ...formData,
-    });
-    return data;
-  } catch (error) {
-    console.error("Error in loginUser:", error.response?.data || error.message);
-    throw error;
-  }
+export async function checkAuthService() {
+  const { data } = await axiosInstance.get("/auth/check-auth");
+
+  return data;
 }
+
 
 export async function mediaUploadService(formData) {
   try {
-    const { data } = await axiosInstance.post(
-      "/media/upload",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
+    const { data } = await axiosInstance.post("/media/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
     return data;
   } catch (error) {
@@ -62,11 +40,9 @@ export async function mediaUploadService(formData) {
 
 export async function mediaDeleteService(id) {
   try {
-
     const { data } = await axiosInstance.delete(`/media/delete/${id}`);
 
-    return data ;
-
+    return data;
   } catch (error) {
     console.error(
       "Error in mediaDeleteService:",
@@ -107,6 +83,77 @@ export async function updateCourseByIdService(id, formData) {
 
 export async function fetchStudentViewCourseListService(query) {
   const { data } = await axiosInstance.get(`/student/course/get?${query}`);
+
+  console.log("service", data);
+
+  return data;
+}
+
+export async function fetchStudentViewCourseDetailsService(courseId) {
+  const { data } = await axiosInstance.get(
+    `/student/course/get/details/${courseId}`
+  );
+
+  return data;
+}
+
+export async function createPaymentService(formData) {
+  const { data } = await axiosInstance.post(`/student/order/create`, formData);
+
+  return data;
+}
+
+export async function captureAndFinalizePaymentService(
+  paymentId,
+  payerId,
+  orderId
+) {
+  const { data } = await axiosInstance.post(`/student/order/capture`, {
+    paymentId,
+    payerId,
+    orderId,
+  });
+
+  return data;
+}
+
+export async function fetchStudentBoughtCoursesService(studentId) {
+  const { data } = await axiosInstance.get(
+    `/student/courses-bought/get/${studentId}`
+  );
+
+  return data;
+}
+
+export async function getCurrentCourseProgressService(userId, courseId) {
+  const { data } = await axiosInstance.get(
+    `/student/course-progress/get/${userId}/${courseId}`
+  );
+
+  return data;
+}
+
+export async function markLectureAsViewedService(userId, courseId, lectureId) {
+  const { data } = await axiosInstance.post(
+    `/student/course-progress/mark-lecture-viewed`,
+    {
+      userId,
+      courseId,
+      lectureId,
+    }
+  );
+
+  return data;
+}
+
+export async function resetCourseProgressService(userId, courseId) {
+  const { data } = await axiosInstance.post(
+    `/student/course-progress/reset-progress`,
+    {
+      userId,
+      courseId,
+    }
+  );
 
   return data;
 }

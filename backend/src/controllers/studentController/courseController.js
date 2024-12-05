@@ -8,24 +8,25 @@ const {
 
 const getAllStudentViewCourses = async (req, res) => {
   try {
-    const coursesList = await studentService.getAllCourses(req.query);
+    const response = await studentService.getAllCourses(req.query);
 
-    if (coursesList.length === 0) {
-      return notFoundResponse(res, "No courses found matching the criteria.");
-    }
-
-    return successResponse(res, coursesList, "Courses retrieved successfully.");
+    return successResponse(res, response, "Courses retrieved successfully.");
   } catch (error) {
     console.error(error);
     return errorResponse(res);
   }
 };
 
-module.exports = {
-  getAllStudentViewCourses,
+const getStudentViewCourseDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await studentService.getCourseDetailsById(id);
+    return successResponse(res, response, "All Courses fetched successfully");
+  } catch (error) {
+    console.error(error);
+    return errorResponse(res);
+  }
 };
-
-const getStudentViewCourseDetails = async (req, res) => {};
 
 const checkCoursePurchaseInfo = async (req, res) => {};
 

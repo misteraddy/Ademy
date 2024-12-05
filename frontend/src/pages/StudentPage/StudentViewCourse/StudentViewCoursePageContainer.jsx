@@ -54,21 +54,15 @@ function StudentViewCoursePageContainer() {
   }
 
   async function fetchAllStudentViewCourses(filters, sort) {
-    console.log("called");
     const query = new URLSearchParams({
       ...filters,
       sortBy: sort,
     });
     const response = await fetchStudentViewCourseListService(query);
   
-    console.log(response);
+    console.log("response",response);
   
-    if (response?.success) {
-      setStudentViewCoursesList(response?.data);
-    } else {
-      setStudentViewCoursesList([]);
-      console.log(response?.message);
-    }
+    setStudentViewCoursesList(response?.data);
   }
 
   useEffect(() => {
@@ -100,6 +94,7 @@ function StudentViewCoursePageContainer() {
         setSort={setSort}
         handleFilterOnChange={handleFilterOnChange}
         fetchAllStudentViewCourses={fetchAllStudentViewCourses}
+        studentViewCoursesList={studentViewCoursesList}
       />
     </>
   );

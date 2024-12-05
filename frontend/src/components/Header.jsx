@@ -28,7 +28,7 @@ function Header() {
 
         <ul className="flex gap-6 sm:ml-10 xs:ml-4 items-center">
           <li
-            onClick={() => navigate("/student/courses")}
+            onClick={() => navigate("/student/course")}
             className={`hover:text-primary hover:font-bold transition-all cursor-pointer ${
               path === "/home/dashboard" ? "text-primary font-bold" : ""
             }`}
@@ -46,7 +46,7 @@ function Header() {
       </div>
 
       <div className="flex space-x-1 p-2">
-        <Button className="">Sign Out</Button>
+        <Button className="dark:border-white border-black" variant="outline">Sign Out</Button>
         <ModeToggle />
       </div>
     </div>

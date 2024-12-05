@@ -4,7 +4,7 @@ import CommonForm from "@/components/common-form/CommonForm";
 import { signUpFormControls } from "@/config/config";
 import { AuthContext } from "@/context/authcontext";
 
-const SignUp = () => {
+const SignUp = ({ toggleForm }) => {
   const navigate = useNavigate();
   const { signUpFormData, setSignUpFormData, handleRegisterUser } = useContext(AuthContext);
 

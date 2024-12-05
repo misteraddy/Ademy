@@ -8,22 +8,37 @@ import StudentHomeContainer from "./pages/StudentPage/StudentViewHome/StudentHom
 import StudentViewCommonLayout from "./components/student-view/StudentViewCommonLayout";
 import StudentViewCoursePageContainer from "./pages/StudentPage/StudentViewCourse/StudentViewCoursePageContainer";
 import StudentViewCourseDetailsPageContainer from "./pages/StudentPage/StudentViewCourseDetail/StudentViewCourseDetailsPageContainer";
+import RouteGuard from "./components/route-guard/RouteGuard";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<AuthPage />} />
-        <Route path="/instructor" element={<InstructorPageContainer />} />
-        <Route path="/instructor/new" element={<AddNewCoursePageContainer />} />
+
+        <Route
+          path="/instructor"
+          element={<RouteGuard element={<InstructorPageContainer />} />}
+        />
+        <Route
+          path="/instructor/new"
+          element={<RouteGuard element={<AddNewCoursePageContainer />} />}
+        />
         <Route
           path="/instructor/edit/:courseId"
-          element={<AddNewCoursePageContainer />}
+          element={<RouteGuard element={<AddNewCoursePageContainer />} />}
         />
-        <Route path="/student" element={<StudentViewCommonLayout />}>
-          <Route path="/student" element={<StudentHomeContainer />} />
-          <Route path="/student/courses" element={<StudentViewCoursePageContainer/>}/>
-          <Route path="/student/course/details/:id" element={<StudentViewCourseDetailsPageContainer/>}/>
+
+        <Route
+          path="/student"
+          element={<RouteGuard element={<StudentViewCommonLayout />} />}
+        >
+          <Route index element={<StudentHomeContainer />} />
+          <Route path="course" element={<StudentViewCoursePageContainer />} />
+          <Route
+            path="course/details/:id"
+            element={<StudentViewCourseDetailsPageContainer />}
+          />
         </Route>
       </Routes>
     </>
